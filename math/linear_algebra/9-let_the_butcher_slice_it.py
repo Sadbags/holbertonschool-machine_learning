@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import numpy as np
-matrix = np.array([[1, 2, 3, 4, 5, 6],
-                   [7, 8, 9, 10, 11, 12],
-                   [13, 14, 15, 16, 17, 18],
-                   [19, 20, 21, 22, 23, 24]])
+matrix = np.array([[36, 14, 57, 82, -9, 10],
+                   [100, 109, -36, 7, 2, 443],
+                   [-6, 54, 57, 82, -36, 7],
+                   [23, 72, 72, 12, 21, 8]])
 
 print("The middle two rows of the matrix are:\n{}".format(matrix[1:3]))
 print("The middle two columns of the matrix are:\n{}".format(matrix[:, 2:4]))
