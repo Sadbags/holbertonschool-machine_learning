@@ -21,15 +21,15 @@ def scatter():
     # Create a figure with a specific size
     plt.figure(figsize=(6.4, 4.8))
 
-    # Set y and x axis labels
+    # Set axis labels
     plt.xlabel("Height (in)")
     plt.ylabel("Weight (lbs)")
 
-    # Title for the plot
-    plt.title("Men's Height vs. Weight")
+    # Set plot title
+    plt.title("Men’s Height vs Weight")
 
-    # Scatter plot of height and weight
-    plt.scatter(x, y, c="magenta")
+    # Scatter plot with magenta data points
+    plt.scatter(x, y, color='magenta', alpha=0.5)
 
     # Display the plot
     plt.show()
