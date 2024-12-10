@@ -13,4 +13,4 @@ def line():
     plt.plot(y, "r-")  # plot y as a red line
     plt.xlim([0, 10])  # sets x axis from 0
 
-    plt.show() # this displays the plot
+    plt.show()  # this displays the plot
