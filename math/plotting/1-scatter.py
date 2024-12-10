@@ -22,8 +22,8 @@ def scatter():
     plt.figure(figsize=(6.4, 4.8))
 
     # Set y and x axis labels
-    plt.ylabel("Weight (lbs)")
     plt.xlabel("Height (in)")
+    plt.ylabel("Weight (lbs)")
 
     # Title for the plot
     plt.title("Men's Height vs. Weight")
