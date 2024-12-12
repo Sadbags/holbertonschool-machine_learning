@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ function that calculates the derivative of polynominal """
 
+
 def poly_derivative(poly):
     """ calculates the derivative of polynominal"""
     if not poly or not isinstance(poly, list):
