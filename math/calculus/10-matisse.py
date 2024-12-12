@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# function that calculates the derivative of polynominal
+""" function that calculates the derivative of polynominal """
 
 def poly_derivative(poly):
     """ calculates the derivative of polynominal"""
@@ -10,7 +10,6 @@ def poly_derivative(poly):
         return [0]
 
     derivative = []
-
     for i in range(1, len(poly)):
         derivative.append(i * poly[i])
 
