@@ -44,7 +44,7 @@ class Leaf(Node):
         return self.depth
 
 
-class DecisionTree:
+class Decision_Tree():
     """Class representing a decision tree."""
 
     def __init__(
