@@ -164,7 +164,6 @@ class Leaf(Node):
         pass
 
     def pred(self, x):
-    """ Method that predicts the value of a sample """
         return self.value
 
 
