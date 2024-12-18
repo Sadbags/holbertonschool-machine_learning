@@ -35,43 +35,26 @@ class Node:
             count = self.left_child.count_nodes_below(only_leaves=True)
             count += self.right_child.count_nodes_below(only_leaves=True)
             return count
-        count = 1 + self.left_child.count_nodes_below()
-        count += self.right_child.count_nodes_below()
-        return count
+        else:
+            count = 1 + self.left_child.count_nodes_below()
+            count += self.right_child.count_nodes_below()
+            return count
 
-    def __str__(self):
+    def __str__(self, prefix=""):
+        """Return a string representation of the node."""
         node_str = (
-            f"root [feature={self.feature}, threshold={self.threshold}]"
+            f"{prefix}root [feature={self.feature}, threshold={self.threshold}]\n"
             if self.is_root else
-            f"-> node [feature={self.feature}, threshold={self.threshold}]\n"
+            f"{prefix}+---> node [feature={self.feature}, threshold={self.threshold}]\n"
         )
 
         if self.is_leaf:
             return node_str
 
-        # Formatting for the left and right children
-        left_str = self.left_child_add_prefix(
-            self.left_child.__str__()) if self.left_child else ""
-        right_str = self.right_child_add_prefix(
-            self.right_child.__str__()) if self.right_child else ""
+        left_str = self.left_child.__str__(prefix + "|   ") if self.left_child else ""
+        right_str = self.right_child.__str__(prefix + "    ") if self.right_child else ""
 
         return node_str + left_str + right_str
-
-    def left_child_add_prefix(self, text):
-        """Add a prefix to the left child."""
-        lines = text.split("\n")
-        new_text = "    +--" + lines[0] + "\n"
-        new_text += "\n".join(["     " + "  " + line for line in lines[1:-1]])
-        new_text += "\n" if len(lines) > 1 else ""
-        return new_text
-
-    def right_child_add_prefix(self, text):
-        """Add a prefix to the right child."""
-        lines = text.split("\n")
-        new_text = "    +--" + lines[0] + "\n"
-        new_text += "\n".join(["     " + "  " + line for line in lines[1:-1]])
-        new_text += "\n" if len(lines) > 1 else ""
-        return new_text
 
 
 class Leaf(Node):
@@ -91,8 +74,8 @@ class Leaf(Node):
         """Return 1 as a leaf counts as one node."""
         return 1
 
-    def __str__(self):
-        return f"-> leaf [value={self.value}]"
+    def __str__(self, prefix=""):
+        return f"{prefix}+---> leaf [value={self.value}]\n"
 
 
 class Decision_Tree():
