@@ -105,9 +105,11 @@ class Leaf(Node):
         return 1
 
     def __str__(self):
+        """ returns the string """
         return f"-> leaf [value={self.value}]"
 
     def get_leaves_below(self):
+        """ returns leaves """
         return [self]
 
 
@@ -136,7 +138,9 @@ class Decision_Tree():
         return self.root.count_nodes_below(only_leaves=only_leaves)
 
     def __str__(self):
+        """ returns the string """
         return self.root.__str__()
 
     def get_leaves(self):
+        """ returns the leaves """
         return self.root.get_leaves_below()
