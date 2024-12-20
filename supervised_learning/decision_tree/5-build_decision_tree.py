@@ -164,6 +164,7 @@ class Leaf(Node):
         pass
 
     def pred(self, x):
+        """ predicts the value """
         return self.value
 
 
@@ -204,4 +205,5 @@ class Decision_Tree():
         self.root.update_bounds_below()
 
     def pred(self, x):
+        """ predicts value of a sample """
         return self.root.pred(x)
