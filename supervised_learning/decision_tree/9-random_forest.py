@@ -23,7 +23,7 @@ class Random_Forest():
             predictions.append(predict(explanatory))
 
         # Calculate the mode (most frequent) prediction for each example
-        modes_predictions = []
+        mode_predictions = []
         for exam_predictions in predictions.T:
             unique_values, counts = np.unique(example_predictions,
                                               return_counts=True)
