@@ -24,7 +24,7 @@ class Random_Forest():
 
         # Calculate the mode (most frequent) prediction for each example
         mode_predictions = []
-        for exam_predictions in predictions.T:
+        for example_predictions in predictions.T:
             unique_values, counts = np.unique(example_predictions,
                                               return_counts=True)
             mode_index = np.argmax(counts)
