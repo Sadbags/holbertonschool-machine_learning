@@ -31,7 +31,7 @@ class Random_Forest():
             mode_predictions.append(unique_values[mode_index])
 
     def fit(self, explanatory, target, n_trees=100, verbose=0):
-        """ fits the random forest into training data """
+        """Fits the Random Forest classifier to training data. """
         self.target = target
         self.explanatory = explanatory
         self.numpy_preds = []
@@ -62,6 +62,6 @@ class Random_Forest():
                   f"{self.accuracy(self.explanatory, self.target)}")
 
     def accuracy(self, test_explanatory, test_target):
-        """ calculates accuracy """
+        """ Calculates the accuracy of the model on test data. """
         return np.sum(np.equal(self.predict(test_explanatory),
-                               test_target))/test_target.size
+                      test_target))/test_target.size
