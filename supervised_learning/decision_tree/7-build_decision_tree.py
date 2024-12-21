@@ -208,6 +208,14 @@ class Decision_Tree():
         """ predicts value of a sample """
         return self.root.pred(x)
 
+    def update_predict(self):
+        """ Method that updates the predict function """
+        self.update_bounds()
+        leaves = self.get_leaves()
+        for leaf in leaves:
+            leaf.update_indicator()
+        self.predict = lambda A: np.array([self.pred(x) for x in A])
+
     def fit(self,explanatory, target,verbose=0):
         """ method to update the predict function """
         if self.split_criterion == "random":
