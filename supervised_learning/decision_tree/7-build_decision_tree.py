@@ -169,14 +169,27 @@ class Leaf(Node):
 
 
 class Decision_Tree():
-    """Class representing a decision tree."""
+    """
+    Class that represents a decision tree
+    """
 
-    def __init__(
-        self, max_depth=10, min_pop=1, seed=0,
-        split_criterion="random", root=None
-    ):
+    def __init__(self, max_depth=10, min_pop=1, seed=0,
+                 split_criterion="random", root=None):
+        """
+        Class constructor for Decision_Tree class
+        Args:
+            max_depth (int, optional): _description_. Defaults to 10.
+            min_pop (int, optional): _description_. Defaults to 1.
+            seed (int, optional): _description_. Defaults to 0.
+            split_criterion (str, optional): _description_.
+                Defaults to "random".
+            root (_type_, optional): _description_. Defaults to None.
+        """
         self.rng = np.random.default_rng(seed)
-        self.root = root if root else Node(is_root=True)
+        if root:
+            self.root = root
+        else:
+            self.root = Node(is_root=True)
         self.explanatory = None
         self.target = None
         self.max_depth = max_depth
@@ -185,27 +198,44 @@ class Decision_Tree():
         self.predict = None
 
     def depth(self):
-        """Return the maximum depth of the tree."""
+        """
+        Method that calculates the depth of the decision tree
+        """
         return self.root.max_depth_below()
 
     def count_nodes(self, only_leaves=False):
-        """Count the nodes in the tree, optionally only counting leaves."""
+        """
+        Method that counts the number of nodes in the decision tree
+        Args:
+            only_leaves (bool, optional): _description_. Defaults to False.
+        Returns:
+            int: number of nodes in the decision tree
+        """
         return self.root.count_nodes_below(only_leaves=only_leaves)
 
     def __str__(self):
-        """ returns the string """
+        """
+        Method that returns the string representation of the decision tree
+        """
         return self.root.__str__()
 
     def get_leaves(self):
-        """ returns the leaves """
+        """ Method that returns the leaves of the decision tree """
         return self.root.get_leaves_below()
 
     def update_bounds(self):
-        """ updates the bounds of the tree """
+        """ Method that updates the bounds of the decision tree """
         self.root.update_bounds_below()
 
+    def update_indicator(self):
+        """
+        Updates the indicator functions for all nodes in the tree starting
+        from the root.
+        """
+        self.root.update_indicator()
+
     def pred(self, x):
-        """ predicts value of a sample """
+        """ Method that predicts the value of a sample """
         return self.root.pred(x)
 
     def update_predict(self):
@@ -216,8 +246,8 @@ class Decision_Tree():
             leaf.update_indicator()
         self.predict = lambda A: np.array([self.pred(x) for x in A])
 
-    def fit(self,explanatory, target,verbose=0):
-        """ method to update the predict function """
+    def fit(self, explanatory, target, verbose=0):
+        """ Method that fits the decision tree to the training data """
         if self.split_criterion == "random":
             self.split_criterion = self.random_split_criterion
         else:
@@ -226,9 +256,10 @@ class Decision_Tree():
         self.target = target
         self.root.sub_population = np.ones_like(self.target, dtype='bool')
 
-        # define later
+        # definde later
         self.fit_node(self.root)
 
+        # defined in the previous task
         self.update_predict()
 
         if verbose == 1:
@@ -242,18 +273,21 @@ class Decision_Tree():
                   f"{self.accuracy(self.explanatory, self.target)}")
             # print("----------------------------------------------------")
 
-    def np_extrema(self,arr):
+    def np_extrema(self, arr):
+        """returns the minimum and maximum of an array"""
         return np.min(arr), np.max(arr)
 
-    def random_split_criterion(self,node):
-        diff=0
-        while diff==0 :
-            feature=self.rng.integers(0,self.explanatory.shape[1])
-            feature_min,feature_max=self.np_extrema(self.explanatory[:,feature][node.sub_population])
-            diff=feature_max-feature_min
-        x=self.rng.uniform()
-        threshold= (1-x)*feature_min + x*feature_max
-        return feature,threshold
+    def random_split_criterion(self, node):
+        """returns a random feature and threshold"""
+        diff = 0
+        while diff == 0:
+            feature = self.rng.integers(0, self.explanatory.shape[1])
+            feature_min, feature_max = self.np_extrema(
+                self.explanatory[:, feature][node.sub_population])
+            diff = feature_max-feature_min
+        x = self.rng.uniform()
+        threshold = (1-x) * feature_min + x * feature_max
+        return feature, threshold
 
     def fit_node(self, node):
         """fitting a node in the decision tree
