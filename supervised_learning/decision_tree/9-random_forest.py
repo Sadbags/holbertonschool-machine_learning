@@ -22,6 +22,8 @@ class Random_Forest():
         for predict in self.numpy_preds:
             predictions.append(predict(explanatory))
 
+        predictions = np.array(predictions)
+
         # Calculate the mode (most frequent) prediction for each example
         mode_predictions = []
         for example_predictions in predictions.T:
