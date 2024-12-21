@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-""" module for random Forest classifier that uses decision tree"""
+""" This module provides a Random Forest
+classifier that uses Decision Trees """
 import numpy as np
 Decision_Tree = __import__('8-build_decision_tree').Decision_Tree
 
 
 class Random_Forest():
-    """ module for random forest """
+    """ Random Forest classifier using Decision Trees as base learners. """
     def __init__(self, n_trees=100, max_depth=10, min_pop=1, seed=0):
+        """ Initializes a Random_Forest classifier. """
         self.numpy_predicts = []
         self.target = None
         self.numpy_preds = None
@@ -16,11 +18,12 @@ class Random_Forest():
         self.seed = seed
 
     def predict(self, explanatory):
-        """ predicts the target for each tree in the forest """
+        """ Predicts the target variable for input data."""
         predictions = []
-        # Generate predictions for each tree
-        for predict in self.numpy_preds:
-            predictions.append(predict(explanatory))
+
+        # Generate predictions for each tree in the forest
+        for predict_function in self.numpy_preds:
+            predictions.append(predict_function(explanatory))
 
         predictions = np.array(predictions)
 
@@ -32,8 +35,10 @@ class Random_Forest():
             mode_index = np.argmax(counts)
             mode_predictions.append(unique_values[mode_index])
 
+        return np.array(mode_predictions)
+
     def fit(self, explanatory, target, n_trees=100, verbose=0):
-        """Fits the Random Forest classifier to training data. """
+        """ Fits the Random Forest classifier to training data. """
         self.target = target
         self.explanatory = explanatory
         self.numpy_preds = []
@@ -64,6 +69,6 @@ class Random_Forest():
                   f"{self.accuracy(self.explanatory, self.target)}")
 
     def accuracy(self, test_explanatory, test_target):
-        """ Calculates the accuracy of the model on test data. """
+        """ Calculates the accuracy of the model on test data."""
         return np.sum(np.equal(self.predict(test_explanatory),
                       test_target))/test_target.size
