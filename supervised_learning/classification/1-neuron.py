@@ -26,6 +26,7 @@ class Neuron:
         """ for the bias """
         return self.__b
 
+    @property
     def A(self):
         """ activated output """
         return self.__A
