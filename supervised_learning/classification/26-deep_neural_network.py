@@ -2,6 +2,9 @@
 """ Deep neural network
 class for binary classification"""
 import numpy as np
+import os
+import pickle
+from matplotlib import pyplot as plt
 
 
 class DeepNeuralNetwork:
