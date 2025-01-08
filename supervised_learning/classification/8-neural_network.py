@@ -2,6 +2,7 @@
 """ This module defines class for binary classification"""
 import numpy as np
 
+
 class NeuralNetwork:
     """ This class defines a neural network """
     def __init__(self, nx, nodes):
