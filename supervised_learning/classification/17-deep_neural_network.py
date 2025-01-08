@@ -20,11 +20,11 @@ class DeepNeuralNetwork:
         if not all(map(lambda x: isinstance(x, int) and x > 0, layers)):
             raise TypeError("layers must be a list of positive integers")
 
-        self.L = len(layers)
+        self.__L = len(layers)
         # Initialize cache as an empty dictionary
-        self.cache = {}
+        self.__cache = {}
         # Initialize weights as an empty dictionary
-        self.weights = {}
+        self.__weights = {}
         for i in range(self.L):
             if i == 0:
                 self.weights['W' + str(i + 1)] = \
